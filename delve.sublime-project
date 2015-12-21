@@ -1,0 +1,22 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.meta",
+				"*.csproj",
+				"*.booproj",
+				"*.unityproj",
+				"*.dll"
+			],
+			"folder_include_patterns":
+			[
+				"Assets",
+				"Assets/*"
+			],
+			"path": "Assets\\Scripts"
+		}
+	],
+	"solution_file": "Delve-csharp.sln"
+}
