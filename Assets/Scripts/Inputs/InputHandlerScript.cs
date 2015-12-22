@@ -78,34 +78,12 @@ public class InputHandlerScript : MonoBehaviour {
 			clickTime += Time.deltaTime;
 		}
 		if (clickTime > dblClickDelta) {
-			clickTime = 0f;
-			isClicked = false;
-			Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
-			
-			if(selected != null)
-			{
-				if(hit.transform != selected.transform)
-				{
-					//selected.GetComponent<OnClickScript>().OffClick();
-					click.OffClick ();
-					selected = null;
-				}
-			}
-
-			if(hit.transform != null){
-				click = hit.transform.GetComponent<OnClickScript>();
-			}
-
-			if(click != null)
-			{
-				click.OnClick();
-				selected = hit.transform.gameObject;
-			}
+			Click();
 
 		}
 		if (Input.GetMouseButtonUp (0)) {
-			selected = null;
 			if(dblClick){
+				selected = null;
 				dblClick = false;
 				if(points.Count > 1){
 					RecognizeGesture ();
@@ -125,7 +103,48 @@ public class InputHandlerScript : MonoBehaviour {
 			if(!isClicked){
 				isClicked = true;
 			}
+			if(isClicked){
+				if(clickTime >= dblClickDelta){
+					DoubleClick();
+				}
+			}
 		}
+	}
+
+	private void LongPress(){
+
+	}
+	private void DoubleClick(){
+		clickTime = 0f;
+		isClicked = false;
+	}
+	private void Click(){
+		clickTime = 0f;
+		isClicked = false;
+		Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit);
+		
+		if(selected != null)
+		{
+			if(hit.transform != selected.transform)
+			{
+				Debug.Log("A "+selected.transform+" was selected, but "+hit.transform+" was clicked");
+				//selected.GetComponent<OnClickScript>().OffClick();
+				click.OffClick ();
+				selected = null;
+			}
+		}
+
+		if(hit.transform != null){
+			click = hit.transform.GetComponent<OnClickScript>();
+		}
+
+		if(click != null)
+		{
+			Debug.Log(hit.transform+" was clicked");
+			click.OnClick();
+			selected = hit.transform.gameObject;
+		}
+	
 	}
 
 	private void RecognizeGesture()
