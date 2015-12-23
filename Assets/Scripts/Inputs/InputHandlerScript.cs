@@ -109,6 +109,11 @@ public class InputHandlerScript : MonoBehaviour {
 				}
 			}
 		}
+		if(Input.GetMouseButton (1)){
+			Debug.Log("Holding Right Click");
+			Camera.main.GetComponent<CameraControl>().moveV = -Input.GetAxis("Mouse Y");
+			Camera.main.GetComponent<CameraControl>().moveH = -Input.GetAxis("Mouse X");
+		}
 	}
 
 	private void LongPress(){
